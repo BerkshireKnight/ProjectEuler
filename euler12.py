@@ -1,17 +1,32 @@
 #!/usr/bin/env python
 
-def num_factors(n):
-    return len([x for x in range(1,n+1) if n%x == 0])
+from math import sqrt
 
 
-def triangle_sum(n):
-    return sum([x for x in range(n+1)])
+def factors(n):
+    return set(reduce(list.__add__,
+                ([i, n//i] for i in range(1, int(sqrt(n)) + 1) if n % i == 0))
+    )
 
 
-def thousands_bound():
-    lower = 1000
-    upper = 2000
-    while num_factors(triangle_sum(upper)) <= 500:
+def triangle(n):
+    return (n * (n+1)) / 2
+
+
+def ten_thousands_bound():
+    lower = 0
+    upper = 10000
+    while len(factors(triangle(upper))) <= 500:
+        lower += 10000
+        upper += 10000
+
+    return lower
+
+
+def thousands_bound(lower_bound):
+    lower = lower_bound
+    upper = lower + 1000
+    while len(factors(triangle(upper))) <= 500:
         lower += 1000
         upper += 1000
 
@@ -21,7 +36,7 @@ def thousands_bound():
 def hundreds_bound(lower_bound):
     lower = lower_bound
     upper = lower + 100
-    while num_factors(triangle_sum(upper)) <= 500:
+    while len(factors(triangle(upper))) <= 500:
         lower += 100
         upper += 100
 
@@ -31,7 +46,7 @@ def hundreds_bound(lower_bound):
 def tens_bound(lower_bound):
     lower = lower_bound
     upper = lower + 10
-    while num_factors(triangle_sum(upper)) <= 500:
+    while len(factors(triangle(upper))) <= 500:
         lower += 10
         upper += 10
 
@@ -40,20 +55,20 @@ def tens_bound(lower_bound):
 
 def solve_problem(lower_bound):
     value = lower_bound
-    while num_factors(triangle_sum(upper)) <= 500:
+    while len(factors(triangle(value))) <= 500:
         value += 1
 
-    return value
+    return triangle(value)
 
 
 def main():
-    b1 = thousands_bound()
-    b2 = hundreds_bound(b1)
-    b3 = tens_bound(b2)
-    print b1, b2, b3
-    # print "The first triangle number with over 500 factors is {}.".format(
-    #     solve_problem(tens_bound(hundreds_bound(thousands_bound())))
-    #     )
+    print "n\t\tnth number\t\tnumber of factors"
+    for i in range(1,101):
+        print "{}\t\t{}\t\t{}".format(
+            i,
+            triangle(i),
+            len(factors(triangle(i)))
+            )
 
 
 if __name__ == "__main__":
