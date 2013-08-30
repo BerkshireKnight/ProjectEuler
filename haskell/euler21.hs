@@ -1,8 +1,7 @@
-factors         ::  Int -> [Int]
-factors n       =   [m | m <- [1..n-1], n `mod` m == 0]
+import Factors (pfactors)
 
 factor_sum      ::  Int -> Int
-factor_sum n    =   sum . factors $ n
+factor_sum n    =   sum . pfactors $ n
 
 amicable        ::  (Int,Int) -> Bool
 amicable (n,m)  =   factor_sum n == m && factor_sum m == n
