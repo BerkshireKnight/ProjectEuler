@@ -4,7 +4,8 @@ module Factors (factors, pfactors, ntfactors) where
     -- returns a list of the factors of n
     factors         ::  Int -> [Int]
     factors n       =   sort . nub $ fs where
-                            fs = foldr (++) [] [[m,n `div` m] | m <- [1..(n`div`2)+1], n `mod` m == 0]
+                            fs  =   foldr (++) [] [[m,n `div` m] | m <- [1..lim+1], n `mod` m == 0]
+                            lim =   floor . sqrt . fromIntegral $ n
 
     -- returns a list of the proper factors of n
     pfactors        ::  Int -> [Int]
