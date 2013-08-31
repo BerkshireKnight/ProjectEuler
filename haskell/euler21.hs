@@ -10,4 +10,4 @@ module Main where
     amic_list       ::  Int -> [(Int,Int)]
     amic_list n     =   [(x,factor_sum x) | x <- [1..n], amicable (x,factor_sum x), x < factor_sum x]
 
-    main            =   print . sum $ [x+y | (x,y) <- amic_list 9999]
+    main            =   putStrLn . show . sum $ [x+y | (x,y) <- amic_list 9999]
