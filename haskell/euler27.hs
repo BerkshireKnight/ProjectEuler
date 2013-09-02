@@ -1,5 +1,5 @@
 module Main where
-    import Primes (prime)
+    import Factors (prime)
 
     -- resolves the quadratic formula n^2 + an + b
     quadratic           ::  Int -> Int -> Int -> Int
@@ -11,4 +11,5 @@ module Main where
     consec_primes n a b =   if prime $ quadratic (n+1) a b
                                 then consec_primes (n+1) a b
                                 else n+1
+
 
