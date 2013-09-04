@@ -1,11 +1,13 @@
+# General stuff
 *.sublime-workspace
 *.txt
+bin
 
-# files associated with Python compilation
+# Files associated with Python compilation
 *.pyc
 __*
 
-# files associated with Haskell compilation
+# Files associated with Haskell compilation
 dist
 cabal-dev
 *.o

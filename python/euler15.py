@@ -16,7 +16,7 @@ def construct_grid():
 
 
 def main():
-    print matrix_sum(construct_grid())
+    print(matrix_sum(construct_grid()))
 
 
 if __name__ == "__main__":
