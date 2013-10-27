@@ -121,7 +121,7 @@ def anneal(path, grid, T):
         path_heuristic(path, grid) -
         path_heuristic(candidate, grid)
         )
-    if energy_change > 0:
+    if energy_change < 0:
         # candidate has lower energy
         return candidate
     else:
