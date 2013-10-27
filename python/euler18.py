@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 from random import choice, randint, random
-from math import pow, e as euler_number
+from math import exp
+from sys import argv
 
 
 def read_grid(filename):
@@ -126,23 +127,29 @@ def anneal(path, grid, T):
         return candidate
     else:
         # candidate has higher energy
-        p = pow(euler_number, energy_change / T)
-        return candidate if random() <= p else path
+        try:
+            p = exp(-energy_change / T)
+            return candidate if random() <= p else path
+        except OverflowError:
+            print("Energy change = %d" % energy_change)
+            print("Temperature = %f" % T)
+            print("Overflow error, quitting")
+            exit(2)
 
 
-def euler18():
+def euler18(num_tries=500):
     """The main method for the solution."""
 
     # read in the grid, and determine the best sample size
     grid = read_grid("numbers-euler18.txt")
     sample_size = len(grid)//3
 
-    # run the annealing algorithm on 500 different samples
+    # run the annealing algorithm on 'num_tries' different samples
     solutions = []
-    for i in range(500):
+    for i in range(num_tries):
         # get an initial sample and set the starting temperature
         sample = [get_random_path([], grid) for i in range(sample_size)]
-        T = 200
+        T = 100
         # successively generate successors until the temperature reaches 0
         while T > 0:
             sample = [anneal(s, grid, T) for s in sample]
@@ -157,7 +164,15 @@ def euler18():
     # display solution
     print([grid[i][best_solution[i]] for i in range(len(grid))])
     print(path_cost(best_solution, grid))
+    exit(0)
 
 
 if __name__ == "__main__":
-    euler18()
+    if len(argv) > 1:
+        try:
+            euler18(int(argv[1]))
+        except ValueError:
+            print("Failed to set tries from command line, defaulting to 500")
+            euler18()
+    else:
+        euler18()
