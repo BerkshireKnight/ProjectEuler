@@ -1,8 +1,22 @@
+#!/usr/bin/env python3
 
-paths = [[0 for m in range(21)] for n in range(21)]
 
-for n in range(0,21):
-    for m in range(0,21):
-        paths[n][m] = 1 if (n == 0 or m == 0) else paths[n-1][m] + paths[n][m-1]
+def euler15(n):
+    paths = [[0 for _ in range(n+1)] for _ in range(n+1)]
 
-print(paths[20][20])
+    for i in range(0, n+1):
+        for j in range(0, n+1):
+            if i == 0 or j == 0:
+                paths[i][j] = 1
+            else:
+                paths[i][j] = paths[i-1][j] + paths[i][j-1]
+
+    return paths[n][n]
+
+
+if __name__ == '__main__':
+    import sys
+
+    n = 20 if len(sys.argv) <= 1 else int(sys.argv[1])
+    result = euler15(n)
+    print(result)
