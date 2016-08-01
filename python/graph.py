@@ -17,6 +17,12 @@ class Vertex:
     def __eq__(self, other):
         return self.uid == other.uid
 
+    def __repr__(self):
+        return "Vertex ({:04x}): {}".format(self.uid, self.value)
+
+    def __str__(self):
+        return str(self.value)
+
 
 class Graph:
 
