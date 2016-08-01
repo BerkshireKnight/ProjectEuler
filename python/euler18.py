@@ -63,21 +63,7 @@ def euler18():
     tri = NumberTriangle('triangle1.txt')
     dist, prev = longest_path(tri, tri.root)
 
-    v, d = None, -1
-    for v1, d1 in dist.items():
-        if d1 > d:
-            v, d = v1, d1
-
-    path = []
-    while v is not None:
-        path.append(v)
-        v = prev[v]
-
-    print('Path:', end=' ')
-    while len(path) > 0:
-        print(path.pop(), end=' ')
-    print()
-    print('Length:', d)
+    print(sorted(dist.values(), reverse=True)[0])
 
 
 if __name__ == '__main__':
