@@ -1,7 +1,7 @@
 #/usr/bin/env python3
 
 
-import graph as g
+import utils.graph as g
 import queue as q
 
 
