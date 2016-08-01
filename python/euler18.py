@@ -30,30 +30,31 @@ class NumberTriangle(g.Graph):
                 self.add_edge(grid[r][c], grid[r+1][c+1])
                 c += 1
 
+            c = 0
             r += 1
 
 
-def longest_path(G, v0):
+def longest_path(graph, source):
     dist, prev = {}, {}
-    dist[v0] = v0.value
-    prev[v0] = None
+    dist[source] = source.value
+    prev[source] = None
 
     query_set = q.PriorityQueue()
-    query_set.put((0, v0))
+    query_set.put((0, source))
 
-    for v in G.vertices:
-        if v != v0:
+    for v in graph.vertices:
+        if v != source:
             dist[v] = -1
             prev[v] = None
 
     while not query_set.empty():
         (_, u) = query_set.get()
-        for v in G.get_neighbours(u):
+        for v in graph.get_neighbours(u):
             alt = dist[u] + v.value
             if alt > dist[v]:
                 dist[v] = alt
                 prev[v] = u
-                query_set.put((1/alt, v))
+                query_set.put((-alt, v))
 
     return dist, prev
 

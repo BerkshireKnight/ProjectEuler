@@ -11,11 +11,29 @@ class Vertex:
         self.uid = uid
         self.value = value
 
+
     def __hash__(self):
         return self.uid
 
     def __eq__(self, other):
         return self.uid == other.uid
+
+    def __ne__(self, other):
+        return not self == other
+
+
+    def __lt__(self, other):
+        return self.value, self.uid < other.value, other.uid
+
+    def __gt__(self, other):
+        return other < self
+
+    def __le__(self, other):
+        return not self > other
+
+    def __ge__(self, other):
+        return not self < other
+
 
     def __repr__(self):
         return "Vertex ({:04x}): {}".format(self.uid, self.value)
