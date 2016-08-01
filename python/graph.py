@@ -1,5 +1,4 @@
 
-import queue as q
 from random import randint
 
 
@@ -43,26 +42,3 @@ class Graph:
     def get_neighbours(self, v):
         return self.edges[v].keys()
 
-
-def longest_path(g, v0):
-    dist, prev = {}, {}
-    dist[v0] = 0
-
-    query_set = q.PriorityQueue()
-    query_set.put((v, 0))
-
-    for v in g.vertices:
-        if v != v0:
-            dist[v] = -1
-            prev[v] = None
-
-    while not query_set.empty():
-        u = query_set.get()        
-        for v in g.get_neighbours(u):
-            alt = dist[u] + v.value
-            if alt > dist[v]:
-                dist[v] = alt
-                prev[v] = u
-                query_set.put((1/alt, v))
-
-    return dist, prev
