@@ -25,7 +25,10 @@ class Vertex:
 
 
     def __lt__(self, other):
-        return self.value, self.uid < other.value, other.uid
+        if self.value is not None and other.value is not None:
+            return self.value, self.uid < other.value, other.uid
+        else:
+            return self.uid < other.uid
 
     def __gt__(self, other):
         return other < self
@@ -85,7 +88,7 @@ def shortest_path(graph, source, shortest=True):
     prev[source] = None
 
     query_set = pq.PriorityQueue()
-    pq.push(source, 0)
+    query_set.push(source, 0)
 
     for v in graph.vertices:
         if v != source:

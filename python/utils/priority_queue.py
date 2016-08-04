@@ -1,5 +1,6 @@
 
 import heapq
+import itertools
 
 
 class PriorityQueue(object):
@@ -26,18 +27,21 @@ class PriorityQueue(object):
         """Adds a new task, or changes the priority of an existing task."""
         if task in self.entry_finder:
             self.remove(task)
+            self.size -= 1
 
         count = next(self.counter)
         entry = [priority, count, task]
-        entry_finder[task] = entry
+        self.entry_finder[task] = entry
         heapq.heappush(self.tasks, entry)
+        self.size += 1
 
     def pop(self):
         """Removes and returns the task with the lowest priority."""
         while self.tasks:
             _, _, task = heapq.heappop(self.tasks)
-            if task is not REMOVED:
+            if task is not self.REMOVED:
                 del self.entry_finder[task]
+                self.size -= 1
                 return task
 
         raise IndexError('Cannot pop from an empty queue.')
@@ -45,4 +49,5 @@ class PriorityQueue(object):
     def remove(self, task):
         """Attempts to remove a specific task from the queue."""
         entry = self.entry_finder.pop(task)
-        entry[-1] = REMOVED
+        entry[-1] = self.REMOVED
+        self.size -= 1

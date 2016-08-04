@@ -20,14 +20,15 @@ class NumberTriangle(g.Graph):
 
                 grid.append(row)
 
-        self.root = grid[0][0]
+        self.root = self.add_vertex(None)
+        self.add_edge(self.root, grid[0][0], grid[0][0].value)
 
         # create edges
         r, c = 0, 0
         while r < len(grid)-1:
             while c <= r:
-                self.add_edge(grid[r][c], grid[r+1][c])
-                self.add_edge(grid[r][c], grid[r+1][c+1])
+                self.add_edge(grid[r][c], grid[r+1][c], grid[r+1][c].value)
+                self.add_edge(grid[r][c], grid[r+1][c+1], grid[r+1][c+1].value)
                 c += 1
 
             c = 0
