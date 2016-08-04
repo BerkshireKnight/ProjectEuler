@@ -1,5 +1,7 @@
 
+import priority_queue as pq
 from random import randint
+import sys
 
 
 MAX_UID = 0xffff
@@ -56,13 +58,47 @@ class Graph:
             if not v.uid in self.used_ids:
                 break
 
+        self.used_ids.add(v.uid)
         self.vertices.add(v)
         self.edges[v] = {}
         return v
 
-    def add_edge(self, v1, v2, w=None):
+    def add_edge(self, v1, v2, w):
         self.edges[v1][v2] = w
+
+
+    def get_edge(self, v1, v2):
+        return self.edges[v1][v2]
 
     def get_neighbours(self, v):
         return self.edges[v].keys()
 
+
+def shortest_path(graph, source, shortest=True):
+    """Uses Dijkstra's algorithm to compute the shortest paths from the source
+    to all other vertices reachable from the source.
+
+    Optionally, may be used to find the longest route instead.
+    """
+    dist, prev = {}, {}
+    dist[source] = 0
+    prev[source] = None
+
+    query_set = pq.PriorityQueue()
+    pq.push(source, 0)
+
+    for v in graph.vertices:
+        if v != source:
+            dist[v] = sys.maxsize if shortest else -sys.maxsize
+            prev[v] = None
+
+    while not query_set.empty():
+        u = query_set.pop()
+        for v in graph.get_neighbours(u):
+            alt = dist[u] + graph.get_edge(u, v)
+            if (shortest and alt < dist[v]) or alt > dist[v]:
+                dist[v] = alt
+                prev[v] = u
+                query_set.push(v, alt if shortest else -alt)
+
+    return dist, prev
