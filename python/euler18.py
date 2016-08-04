@@ -1,8 +1,6 @@
 #/usr/bin/env python3
 
-
 import utils.graph as g
-import queue as q
 
 
 class NumberTriangle(g.Graph):
