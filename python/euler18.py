@@ -34,34 +34,9 @@ class NumberTriangle(g.Graph):
             r += 1
 
 
-def longest_path(graph, source):
-    dist, prev = {}, {}
-    dist[source] = source.value
-    prev[source] = None
-
-    query_set = q.PriorityQueue()
-    query_set.put((0, source))
-
-    for v in graph.vertices:
-        if v != source:
-            dist[v] = -1
-            prev[v] = None
-
-    while not query_set.empty():
-        (_, u) = query_set.get()
-        for v in graph.get_neighbours(u):
-            alt = dist[u] + v.value
-            if alt > dist[v]:
-                dist[v] = alt
-                prev[v] = u
-                query_set.put((-alt, v))
-
-    return dist, prev
-
-
 def euler18():
     tri = NumberTriangle('triangle1.txt')
-    dist, prev = longest_path(tri, tri.root)
+    dist, prev = g.shortest_path(tri, tri.root, False)
 
     print(sorted(dist.values(), reverse=True)[0])
 

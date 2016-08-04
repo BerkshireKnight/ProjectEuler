@@ -27,7 +27,7 @@ class PriorityQueue(object):
         if task in self.entry_finder:
             self.remove(task)
 
-        n = next(self.counter)
+        count = next(self.counter)
         entry = [priority, count, task]
         entry_finder[task] = entry
         heapq.heappush(self.tasks, entry)

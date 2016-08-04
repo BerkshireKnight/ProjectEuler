@@ -1,5 +1,5 @@
 
-import priority_queue as pq
+import utils.priority_queue as pq
 from random import randint
 import sys
 
