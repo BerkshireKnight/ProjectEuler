@@ -30,3 +30,7 @@ def proper_factors(x):
 
 def non_trivial_factors(x):
     return find_factors(x, NON_TRIVIAL)
+
+
+def is_prime(x):
+    return len(factors(x)) == 2
