@@ -3,7 +3,7 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "/home/ianknight/Computing/euler",
+			"path": "/home/ianknight/Computing/ProjectEuler",
             "file_exclude_patterns": ["*.hi"],
             "folder_exclude_patterns": ["bin"]
 		}
