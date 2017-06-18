@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 
-from functools import reduce
 from itertools import chain
 from math import sqrt
-
-
-def factors(n):
-    factor_pairs = [(k, n//k) for k in range(1, int(sqrt(n))+1) if n % k == 0]
-    factors = list(chain(*factor_pairs))
-    return sorted(factors)
+from utils.factors import factors
 
 
 def triangle(n):

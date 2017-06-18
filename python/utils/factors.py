@@ -3,11 +3,11 @@ from math import sqrt
 
 
 def factors(x):
-    results = set()
+    results = []
     for x1 in range(1, int(sqrt(x)+2)):
         if x % x1 == 0:
-            results.add(x1)
-            results.add(x // x1)
+            results.append(x1)
+            results.append(x // x1)
 
     return sorted(results)
 
