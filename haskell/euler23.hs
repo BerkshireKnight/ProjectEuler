@@ -17,11 +17,11 @@ addNonAbundantSums      =   addHelp 28124 0
 
 addHelp                 ::  Int -> Int -> Int
 addHelp 0 n             =   n
-addHelp i n             =   if i `member` xs
+addHelp i n             =   if i `Set.member` xs
                                 then addHelp (i-1) n
                                 else addHelp (i-1) (n+i)
                             where xs = abundantSums
 
 
 main                    ::  IO ()
-main                    =   putStrLn . show $ addNonAbundantSums
+main                    =   print addNonAbundantSums
