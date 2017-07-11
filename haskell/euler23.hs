@@ -8,8 +8,7 @@ import Factors (pfactors)
 abundantSums            ::  Set.Set Int
 abundantSums            =   Set.fromList [n + m | n <- ns, m <- ns]
                             where
-                                ns  = [n | n <- [1..28124], f n]
-                                f n = sum (pfactors n) > n
+                                ns  = [n | n <- [1..28124], sum (pfactors n) > n]
 
 
 addNonAbundantSums      ::  Int
